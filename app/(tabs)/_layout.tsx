@@ -1,35 +1,67 @@
+/**
+ * Tabs Layout
+ * 
+ * Bottom tab navigator for main app screens.
+ * Tabs: Home, Favourites, Search, Profile, Menu
+ */
+
 import { Tabs } from 'expo-router';
-import React from 'react';
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
+        headerShown: true,
+        tabBarActiveTintColor: '#22c55e', // Primary green color
+        tabBarInactiveTintColor: '#9ca3af', // Muted text color
+        tabBarStyle: {
+          borderTopWidth: 1,
+          borderTopColor: '#e5e7eb',
+        },
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarLabel: 'Home',
+          headerShown: false, // Using custom header in home screen
+          // TODO: Add tab bar icon
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="favorites"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Favourites',
+          tabBarLabel: 'Favourites',
+          // TODO: Add tab bar icon
+        }}
+      />
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: 'Search',
+          tabBarLabel: 'Search',
+          // TODO: Add tab bar icon
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarLabel: 'Profile',
+          // TODO: Add tab bar icon
+        }}
+      />
+      <Tabs.Screen
+        name="menu"
+        options={{
+          title: 'Menu',
+          tabBarLabel: 'Menu',
+          // TODO: Add tab bar icon
         }}
       />
     </Tabs>
   );
 }
+
