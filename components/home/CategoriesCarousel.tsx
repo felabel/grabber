@@ -1,17 +1,23 @@
 /**
  * Categories Carousel Component
- * 
- * Horizontal scrolling categories with icons
+ * Horizontal scrolling categories with icons.
+ * SVGs are rendered as components (expo-image source does not support SVG).
  */
 
 import { theme } from '@/constants/theme';
-import { Image } from 'expo-image';
+import React from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+const FruitsSvg = require('@/assets/images/fruits.svg').default;
+const MilkEggSvg = require('@/assets/images/milk-egg.svg').default;
+const BeveragesSvg = require('@/assets/images/beverages.svg').default;
+const LaundrySvg = require('@/assets/images/laundry.svg').default;
+const VegetablesSvg = require('@/assets/images/vegrtables.svg').default;
 
 interface Category {
   id: string;
   name: string;
-  image: any;
+  SvgIcon: React.ComponentType<{ width?: number; height?: number }>;
 }
 
 interface CategoriesCarouselProps {
@@ -20,11 +26,11 @@ interface CategoriesCarouselProps {
 }
 
 const defaultCategories: Category[] = [
-  { id: '1', name: 'Fruits', image: require('@/assets/images/fruits.svg') },
-  { id: '2', name: 'Milk & egg', image: require('@/assets/images/milk-egg.svg') },
-  { id: '3', name: 'Beverages', image: require('@/assets/images/beverages.svg') },
-  { id: '4', name: 'Laundry', image: require('@/assets/images/laundry.svg') },
-  { id: '5', name: 'Vegetables', image: require('@/assets/images/vegrtables.svg') },
+  { id: '1', name: 'Fruits', SvgIcon: FruitsSvg },
+  { id: '2', name: 'Milk & egg', SvgIcon: MilkEggSvg },
+  { id: '3', name: 'Beverages', SvgIcon: BeveragesSvg },
+  { id: '4', name: 'Laundry', SvgIcon: LaundrySvg },
+  { id: '5', name: 'Vegetables', SvgIcon: VegetablesSvg },
 ];
 
 export default function CategoriesCarousel({
@@ -49,11 +55,7 @@ export default function CategoriesCarousel({
             onPress={() => handleCategoryPress(category.id)}
           >
             <View style={styles.categoryIconContainer}>
-              <Image 
-                source={category.image} 
-                style={styles.categoryIcon} 
-                contentFit="contain" 
-              />
+              {React.createElement(category.SvgIcon, { width: 50, height: 50 })}
             </View>
             <Text style={styles.categoryName}>{category.name}</Text>
           </TouchableOpacity>

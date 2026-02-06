@@ -1,13 +1,16 @@
 /**
  * Fruits Listing Section Component
- * 
- * Horizontal scrolling product cards for fruits
+ * Horizontal scrolling product cards for fruits.
+ * SVGs are rendered as components (expo-image source does not support SVG).
  */
 
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Image } from 'expo-image';
 import { theme } from '@/constants/theme';
 import { useCartStore } from '@/store';
+import React from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+const FruitsSvg = require('@/assets/images/fruits.svg').default;
+const PepperSvg = require('@/assets/images/pepper.svg').default;
 
 interface Fruit {
   id: string;
@@ -15,7 +18,7 @@ interface Fruit {
   price: number;
   rating: number;
   reviews: number;
-  image: any;
+  SvgImage: React.ComponentType<{ width?: number; height?: number }>;
 }
 
 interface FruitsListingSectionProps {
@@ -27,46 +30,11 @@ interface FruitsListingSectionProps {
 }
 
 const defaultFruits: Fruit[] = [
-  {
-    id: '1',
-    name: 'Banana',
-    price: 3.99,
-    rating: 4.8,
-    reviews: 287,
-    image: require('@/assets/images/fruits.svg'),
-  },
-  {
-    id: '2',
-    name: 'Pepper',
-    price: 2.99,
-    rating: 4.8,
-    reviews: 287,
-    image: require('@/assets/images/pepper.svg'),
-  },
-  {
-    id: '3',
-    name: 'Orange',
-    price: 3.99,
-    rating: 4.8,
-    reviews: 287,
-    image: require('@/assets/images/fruits.svg'),
-  },
-  {
-    id: '4',
-    name: 'Apple',
-    price: 4.99,
-    rating: 4.9,
-    reviews: 312,
-    image: require('@/assets/images/fruits.svg'),
-  },
-  {
-    id: '5',
-    name: 'Mango',
-    price: 5.99,
-    rating: 4.7,
-    reviews: 245,
-    image: require('@/assets/images/fruits.svg'),
-  },
+  { id: '1', name: 'Banana', price: 3.99, rating: 4.8, reviews: 287, SvgImage: FruitsSvg },
+  { id: '2', name: 'Pepper', price: 2.99, rating: 4.8, reviews: 287, SvgImage: PepperSvg },
+  { id: '3', name: 'Orange', price: 3.99, rating: 4.8, reviews: 287, SvgImage: FruitsSvg },
+  { id: '4', name: 'Apple', price: 4.99, rating: 4.9, reviews: 312, SvgImage: FruitsSvg },
+  { id: '5', name: 'Mango', price: 5.99, rating: 4.7, reviews: 245, SvgImage: FruitsSvg },
 ];
 
 // Repeat fruits for scrolling
@@ -132,11 +100,7 @@ export default function FruitsListingSection({
             onPress={() => handleFruitPress(fruit.id)}
           >
             <View style={styles.fruitImageContainer}>
-              <Image 
-                source={fruit.image} 
-                style={styles.fruitImage} 
-                contentFit="cover" 
-              />
+              {React.createElement(fruit.SvgImage, { width: 160, height: 140 })}
               <TouchableOpacity
                 style={styles.addButton}
                 onPress={() => handleAddToCart(fruit)}

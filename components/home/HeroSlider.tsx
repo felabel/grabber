@@ -1,16 +1,20 @@
 /**
  * Hero Slider Component
- * 
- * Horizontal scrolling slider with promotional banners
+ * Horizontal scrolling slider with promotional banners.
+ * SVGs are rendered as components (expo-image source does not support SVG).
  */
 
 import { theme } from '@/constants/theme';
-import { Image } from 'expo-image';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
-const SLIDER_WIDTH = SCREEN_WIDTH - 32; // Account for padding
+const SLIDER_WIDTH = SCREEN_WIDTH - 32;
+
+// SVG assets as components (react-native-svg-transformer)
+const FruitBasketSvg = require('@/assets/images/fruit-basket.svg').default;
+const FruitNetSvg = require('@/assets/images/fruit-net.svg').default;
+const FruitBagSvg = require('@/assets/images/fruit-bag.svg').default;
 
 interface Slide {
   id: string;
@@ -21,7 +25,7 @@ interface Slide {
   textColor: string;
   buttonColor: string;
   buttonTextColor: string;
-  image: any;
+  SvgImage: React.ComponentType<{ width?: number; height?: number }>;
 }
 
 interface HeroSliderProps {
@@ -39,7 +43,7 @@ const defaultSlides: Slide[] = [
     textColor: theme.colors.primary[500],
     buttonColor: theme.colors.primary[500],
     buttonTextColor: '#FFFFFF',
-    image: require('@/assets/images/fruit-basket.svg'),
+    SvgImage: FruitBasketSvg,
   },
   {
     id: '2',
@@ -50,7 +54,7 @@ const defaultSlides: Slide[] = [
     textColor: '#FFFFFF',
     buttonColor: '#FFFFFF',
     buttonTextColor: '#000000',
-    image: require('@/assets/images/fruit-net.svg'),
+    SvgImage: FruitNetSvg,
   },
   {
     id: '3',
@@ -61,7 +65,7 @@ const defaultSlides: Slide[] = [
     textColor: '#000000',
     buttonColor: '#FFFFFF',
     buttonTextColor: '#000000',
-    image: require('@/assets/images/fruit-bag.svg'),
+    SvgImage: FruitBagSvg,
   },
 ];
 
@@ -115,11 +119,7 @@ export default function HeroSlider({ slides = defaultSlides, onSlidePress }: Her
                 </TouchableOpacity>
               </View>
               <View style={styles.slideImageContainer}>
-                <Image 
-                  source={slide.image} 
-                  style={styles.slideImage} 
-                  contentFit="contain" 
-                />
+                {React.createElement(slide.SvgImage, { width: 120, height: 120 })}
               </View>
             </View>
           </View>
