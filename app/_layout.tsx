@@ -9,16 +9,45 @@
  * - Splash screen handling
  */
 
+import { getCategoryName } from '@/data/category-products';
 import { QueryProvider } from '@/providers/query-provider';
-import { Stack } from 'expo-router';
+import Feather from '@expo/vector-icons/Feather';
+import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
+
+function CartOrdersButton() {
+  const router = useRouter();
+  return (
+    <TouchableOpacity
+      onPress={() => router.push('/orders')}
+      style={{ marginRight: 16 }}
+    >
+      <Feather name="file-text" size={22} color="#0A0B0A" />
+    </TouchableOpacity>
+  );
+}
+
+/** Single left arrow only – no background, no radius (same as Search tab back icon) */
+function StackBackButton() {
+  const router = useRouter();
+  return (
+    <TouchableOpacity
+      onPress={() => router.back()}
+      style={styles.backButton}
+      hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+      activeOpacity={0.6}
+    >
+      <Feather name="arrow-left" size={24} color="#0A0B0A" />
+    </TouchableOpacity>
+  );
+}
 
 export default function RootLayout() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -57,9 +86,10 @@ export default function RootLayout() {
           <View style={styles.container} onLayout={onLayoutRootView}>
             <Stack
               screenOptions={{
-                headerShown: false, // Hide default header, we'll use custom headers
+                headerShown: false,
                 animation: 'slide_from_right',
                 contentStyle: { backgroundColor: '#ffffff' },
+                headerLeft: () => <StackBackButton />,
               }}
             >
               {/* Auth stack - shown when user is not authenticated */}
@@ -70,6 +100,14 @@ export default function RootLayout() {
               
               {/* Modal/overlay screens */}
               <Stack.Screen
+                name="category/[id]"
+                options={({ route }) => ({
+                  presentation: 'card',
+                  headerShown: true,
+                  title: getCategoryName((route.params as { id?: string })?.id ?? ''),
+                })}
+              />
+              <Stack.Screen
                 name="product-details"
                 options={{
                   presentation: 'card',
@@ -78,11 +116,20 @@ export default function RootLayout() {
                 }}
               />
               <Stack.Screen
+                name="orders"
+                options={{
+                  presentation: 'card',
+                  headerShown: true,
+                  title: 'Orders',
+                }}
+              />
+              <Stack.Screen
                 name="cart"
                 options={{
                   presentation: 'card',
                   headerShown: true,
-                  title: 'Shopping Cart',
+                  title: 'Cart',
+                  headerRight: () => <CartOrdersButton />,
                 }}
               />
               <Stack.Screen
@@ -136,5 +183,11 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  backButton: {
+    marginLeft: 8,
+    padding: 8,
+    backgroundColor: 'transparent',
+    borderRadius: 0,
   },
 });

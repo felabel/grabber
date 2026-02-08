@@ -5,17 +5,21 @@
  */
 
 import {
-  CategoriesCarousel,
-  FruitsListingSection,
-  HeaderSection,
-  HeroSlider,
+    CategoriesCarousel,
+    FruitsListingSection,
+    HeaderSection,
+    HeroSlider,
 } from '@/components/home';
+import { useCartStore } from '@/store';
 import { useRouter } from 'expo-router';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+const FLOATING_CART_HEIGHT = 56 + 8; // bar height + margin
+
 export default function HomeScreen() {
   const router = useRouter();
+  const cartItemCount = useCartStore((state) => state.getCartItemCount());
 
   const handleLocationPress = () => {
     // TODO: Navigate to location selection
@@ -26,7 +30,7 @@ export default function HomeScreen() {
   };
 
   const handleSlidePress = (_slideId: string) => {
-    // TODO: Handle slide button press
+    router.push('/(tabs)/search');
   };
 
   const handleCategoryPress = (categoryId: string) => {
@@ -47,7 +51,10 @@ export default function HomeScreen() {
 
       <ScrollView
         style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          cartItemCount > 0 && { paddingBottom: 20 + FLOATING_CART_HEIGHT },
+        ]}
         showsVerticalScrollIndicator={false}
       >
         <HeroSlider onSlidePress={handleSlidePress} />

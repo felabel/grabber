@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
+    "android": "adb reverse tcp:8081 tcp:8081 2>/dev/null; EXPO_OFFLINE=1 REACT_NATIVE_PACKAGER_HOSTNAME=127.0.0.1 expo start",
+    "android:run": "expo run:android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
@@ -54,8 +55,5 @@
     "prettier": "^3.4.2",
     "typescript": "~5.9.2"
   },
-  "private": true,
-  "engines": {
-    "node": "20.x"
-  }
+  "private": true
 }

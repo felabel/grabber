@@ -97,6 +97,7 @@ export const colors = {
     light: '#ECECEC',
     default: '#d1d5db',
     dark: '#9ca3af',
+    neutral: '#F6F6F6',
   },
 
   // Status colors for order status
