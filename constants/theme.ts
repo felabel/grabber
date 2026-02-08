@@ -27,6 +27,9 @@ export const colors = {
 
   // Primary green (light) - for slider backgrounds
   primaryGreen: '#D7FFD4',
+  black: '#000000',
+  white: '#FFFFFF',
+ 
 
   // Secondary brand color (yellow)
   secondary: '#FFDB24',
@@ -70,17 +73,20 @@ export const colors = {
 
   // Text colors
   text: {
-    primary: '#1f2937', // Dark gray for primary text
+    primary: '#5A5555', // Dark gray for primary text
     secondary: '#6b7280', // Medium gray for secondary text
     muted: '#9ca3af', // Light gray for muted/disabled text
     inverse: '#ffffff', // White text for dark backgrounds
     link: '#22c55e', // Primary color for links
+    dark: '#0A0B0A',
+    white: '#FFFFFF',
+    black: '#0A0B0A',
   },
 
   // Background colors
   background: {
     primary: '#ffffff', // White background
-    secondary: '#f9fafb', // Light gray background
+    secondary: '#F6F6F6', // Neutrals/Neutral 50
     tertiary: '#f3f4f6', // Slightly darker gray
     inverse: '#1f2937', // Dark background
     overlay: 'rgba(0, 0, 0, 0.5)', // Semi-transparent overlay
@@ -88,7 +94,7 @@ export const colors = {
 
   // Border colors
   border: {
-    light: '#e5e7eb',
+    light: '#ECECEC',
     default: '#d1d5db',
     dark: '#9ca3af',
   },
@@ -164,7 +170,7 @@ export const spacing = {
 export const borderRadius = {
   none: 0,
   sm: 4,
-  md: 8,
+  md: 10,
   lg: 12,
   xl: 16,
   '2xl': 20,

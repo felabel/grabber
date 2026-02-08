@@ -23,6 +23,7 @@ interface Slide {
   buttonText: string;
   backgroundColor: string;
   textColor: string;
+  subtitleColor: string;
   buttonColor: string;
   buttonTextColor: string;
   SvgImage: React.ComponentType<{ width?: number; height?: number }>;
@@ -40,7 +41,8 @@ const defaultSlides: Slide[] = [
     subtitle: 'Enjoy our big offer',
     buttonText: 'Shop Now',
     backgroundColor: theme.colors.primaryGreen,
-    textColor: theme.colors.primary[500],
+    textColor: theme.colors.black,
+    subtitleColor: theme.colors.primary[500],
     buttonColor: theme.colors.primary[500],
     buttonTextColor: '#FFFFFF',
     SvgImage: FruitBasketSvg,
@@ -52,6 +54,7 @@ const defaultSlides: Slide[] = [
     buttonText: 'Shop Now',
     backgroundColor: theme.colors.primary[500],
     textColor: '#FFFFFF',
+    subtitleColor: '#FFFFFF',
     buttonColor: '#FFFFFF',
     buttonTextColor: '#000000',
     SvgImage: FruitNetSvg,
@@ -63,6 +66,7 @@ const defaultSlides: Slide[] = [
     buttonText: 'Shop Now',
     backgroundColor: theme.colors.secondary,
     textColor: '#000000',
+    subtitleColor: '#000000',
     buttonColor: '#FFFFFF',
     buttonTextColor: '#000000',
     SvgImage: FruitBagSvg,
@@ -173,6 +177,7 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.fontSize.base,
     marginBottom: theme.spacing.md,
     opacity: 0.9,
+    fontWeight: theme.typography.fontWeight.semiBold,
   },
   slideButton: {
     paddingHorizontal: theme.spacing.lg,

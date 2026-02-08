@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
     marginRight: theme.spacing.md,
   },
   categoryIconContainer: {
-    width: 70,
-    height: 70,
+    width: 80,
+    height: 80,
     borderRadius: theme.borderRadius.full,
     backgroundColor: theme.colors.background.secondary,
     justifyContent: 'center',
